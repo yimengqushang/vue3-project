@@ -3,7 +3,7 @@ import { getDetail } from '@/api/detail.js';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import DetailHot from '@/views/Detail/components/DetailHot.vue';
-import ImageView from '@/components/index.vue';
+
 
 const goods = ref({})
 const route = useRoute()
@@ -12,6 +12,11 @@ const getGoods = async () => {
   goods.value = res.result
 }
 onMounted(() => getGoods())
+
+// sku规格被操作时
+const skuChange = (sku) => {
+  console.log(sku);
+}
 
 </script>
 
@@ -27,7 +32,7 @@ onMounted(() => getGoods())
           <el-breadcrumb-item :to="{ path: `/category/sub/${goods.categories?.[0].id}` }">
             {{ goods.categories?.[0].name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item>抓绒保暖，毛毛虫子儿童运动鞋</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ goods.name }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <!-- 商品信息 -->
@@ -36,7 +41,7 @@ onMounted(() => getGoods())
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <ImageView :imageList="goods.mainPictures"></ImageView>
+              <WkImageView :imageList="goods.mainPictures"></WkImageView>
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -85,7 +90,7 @@ onMounted(() => getGoods())
                 </dl>
               </div>
               <!-- sku组件 -->
-
+              <WkSku :goods="goods" @change="skuChange"></WkSku>
               <!-- 数据组件 -->
 
               <!-- 按钮组件 -->
