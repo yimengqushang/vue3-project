@@ -1,5 +1,5 @@
 <script setup>
-import HomePanel from './HomePanel.vue'
+import HomePanel from '@/views/Home/components/HomePanel.vue'
 import { findNewAPI } from '@/api/home.js';
 import { onMounted, ref } from 'vue';
 
