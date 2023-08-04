@@ -26,6 +26,7 @@ const getHotList = async () => {
 }
 onMounted(() => getHotList())
 
+
 </script>
 
 

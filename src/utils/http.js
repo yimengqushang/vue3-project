@@ -5,6 +5,7 @@ import { ElMessage } from 'element-plus'
 import 'element-plus/es/components/message/style/css'
 
 import { useUserStore } from '@/stores/user.js';
+import router from '@/router';
 
 const httpInstance = axios.create({
     baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
@@ -28,9 +29,17 @@ httpInstance.interceptors.request.use(config => {
 httpInstance.interceptors.response.use(res => res.data, e => {
     // 统一错误提示
     ElMessage({
-        type: 'warning',
-        message: e.response.data.message
-    })
+            type: 'warning',
+            message: e.response.data.message
+        })
+        // 401 token失效处理
+        // 1、清除本地用户数据
+        // 2、跳转登录页
+    const userStore = useUserStore()
+    if (e.response.status === 401) {
+        userStore.clearUserInfo()
+        router.push('/login')
+    }
     return Promise.reject(e)
 })
 
