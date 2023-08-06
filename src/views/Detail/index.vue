@@ -18,15 +18,15 @@ onMounted(() => getGoods())
 // sku规格被操作时
 let skuObj = {}
 const skuChange = (sku) => {
-  console.log(sku);
+  // console.log(sku);
   skuObj = sku
 }
 
 // count 
 const count = ref(1)
-const countChange = (count) => {
-  console.log(count);
-}
+// const countChange = (count) => {
+// console.log(count);
+// }
 
 // 购物车
 const cartStore = userCartStore()
@@ -36,7 +36,7 @@ const addCart = () => {
     cartStore.addCart({
       id: goods.value.id,
       name: goods.value.name,
-      pictures: goods.value.mainPictures,
+      picture: goods.value.mainPictures[0],
       price: goods.value.price,
       count: count.value,
       skuId: skuObj.skuId,
@@ -123,7 +123,7 @@ const addCart = () => {
               <!-- sku组件 -->
               <WkSku :goods="goods" @change="skuChange"></WkSku>
               <!-- 数据组件 -->
-              <el-input-number v-model="count" @change="countChange" />
+              <el-input-number v-model="count" />
               <!-- 按钮组件 -->
               <div>
                 <el-button @click="addCart" size="large" class="btn">
