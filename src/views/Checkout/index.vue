@@ -1,13 +1,15 @@
 <script setup>
-import { getCheckoutInfoAPI } from '@/api/checkout.js';
+import { getCheckoutInfoAPI, createOrderAPI } from '@/api/checkout.js';
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { userCartStore } from '@/stores/cartStore.js';
 
-
+const cartStore = userCartStore()
+const router = useRouter()
 const checkInfo = ref({})  // 订单对象
 const curAddress = ref({})
 const getCheckInfo = async () => {
   const res = await getCheckoutInfoAPI()
-  // console.log(res.result);
   checkInfo.value = res.result
   const item = checkInfo.value.userAddresses.find(item => item.isDefault === 0)
   curAddress.value = item
@@ -28,6 +30,32 @@ const confirm = () => {
   curAddress.value = activeAddress.value
   showDialoa.value = false
   activeAddress.value = {}
+}
+
+// 创建订单
+const createOrder = async () => {
+  const res = await createOrderAPI({
+    "deliveryTimeType": 1,
+    "payType": 1,
+    "payChannel": 1,
+    "buyerMessage": "",
+    goods: checkInfo.value.goods.map(item => {
+      return {
+        skuId: item.skuId,
+        count: item.count
+      }
+    }),
+    addressId: curAddress.value.id
+  })
+  const orderId = res.result.id
+  router.push({
+    path: '/pay',
+    query: {
+      id: orderId
+    }
+  })
+  // 更新购物车列表
+  cartStore.updateNewList()
 }
 
 </script>
@@ -79,7 +107,7 @@ const confirm = () => {
                   </a>
                 </td>
                 <td>&yen;{{ i.price }}</td>
-                <td>{{ i.price }}</td>
+                <td>{{ i.count }}</td>
                 <td>&yen;{{ i.totalPrice }}</td>
                 <td>&yen;{{ i.totalPayPrice }}</td>
               </tr>
@@ -124,7 +152,7 @@ const confirm = () => {
         </div>
         <!-- 提交订单 -->
         <div class="submit">
-          <el-button type="primary" size="large">提交订单</el-button>
+          <el-button @click="createOrder" type="primary" size="large">提交订单</el-button>
         </div>
       </div>
     </div>

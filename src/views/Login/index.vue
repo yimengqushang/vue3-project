@@ -114,7 +114,7 @@ const doLogin = async () => {
           <a href="javascript:;">搜索推荐</a>
           <a href="javascript:;">友情链接</a>
         </p>
-        <p>CopyRight &copy; 悟空</p>
+        <p>CopyRight &copy; 云宝购</p>
       </div>
     </footer>
   </div>
