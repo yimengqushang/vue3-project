@@ -11,8 +11,8 @@ const router = useRouter()
 
 // 1、准备表单对象
 const form = ref({
-  account: 'xiaotuxian001',
-  password: '123456',
+  account: 'heima282',
+  password: 'hm#qd@23!',
   agree: true,
 })
 
@@ -114,7 +114,7 @@ const doLogin = async () => {
           <a href="javascript:;">搜索推荐</a>
           <a href="javascript:;">友情链接</a>
         </p>
-        <p>CopyRight &copy; 云宝购</p>
+        <p>CopyRight &copy; 悟空</p>
       </div>
     </footer>
   </div>
