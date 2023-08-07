@@ -1,10 +1,8 @@
 # vue3-project
 
-This template should help get you started developing with Vue 3 in Vite.
+## The technology stack used in this project
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+vue3 + vite + pinia + VueRouter + axios + VueUse + element-plus
 
 ## Customize configuration
 
